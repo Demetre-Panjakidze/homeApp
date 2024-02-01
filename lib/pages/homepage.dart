@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -16,8 +17,8 @@ class HomePage extends StatelessWidget {
                 decoration:
                     BoxDecoration(border: Border.all(color: Colors.black)),
                 child: TextButton(
-                  onPressed: () {
-                    print("Navigation pressed");
+                  onPressed: () async {
+                    await _launchURL();
                   },
                   child: const Text(
                     "Navigate",
@@ -31,5 +32,12 @@ class HomePage extends StatelessWidget {
         ],
       ),
     );
+  }
+}
+
+_launchURL() async {
+  final Uri url = Uri.parse('https://abgeo.dev');
+  if (!await launchUrl(url)) {
+    throw Exception('Could not launch $url');
   }
 }
